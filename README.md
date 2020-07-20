@@ -53,13 +53,13 @@ When prompted, select the file called "Intro_to_R_for_Biology.swc"
 This is a compressed folder full of files in a special file format, .swc, unique to swirl. When you use the `install_course()` function to install this course, it will unpack and load the course for you.
 
 
-then type this code into the RStudio console and press Enter:
+4. Next, type this code into the RStudio console and press Enter:
 
 `swirl()`
 
-4. Swirl will ask you to give a name and then give a few other prompts to help you learn how it works.  Follow the instructions until you get to a prompt that asks you to "Please choose a course, or type 0 to exit swirl." At this prompt, select the option next to "Intro to R for Biology".
+5. Swirl will ask you to give a name (it will use this to remember you from session to session, nothing is shared publicly) and then it will give a few other prompts to help you learn how swirl works.  Follow the instructions until you get to a prompt that asks you to "Please choose a course, or type 0 to exit swirl." At this prompt, select the option next to "Intro to R for Biology".
 
-5. Once you are in the course, you will see several lessons. Start with "1: Basics" or choose the lesson your instructor has told you to choose.
+6. Once you are in the course, you will see several lessons. Start with "1: Basics" or choose the lesson your instructor has told you to choose.
 
 If you need help while going through a swirl lesson, you can click on the "swirl-commands.txt" or "swirl-tips.txt" files in the IntroR4bio folder
 
