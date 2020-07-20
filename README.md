@@ -6,6 +6,8 @@ This webpage details how to download and install the **Intro to R for Biology** 
 
 Please feel free to download and use the **Intro to R for Biology** Swirl course for educational purposes, no commercial uses are allowed.
 
+(note: it might be helpful to open a duplicate window of this page next to this one or on a separate device so you can more easily read and follow the instructions while you complete these steps)
+
 ## Install/Update R and RStudio
 
 The directions below assume you have access to R and RStudio. Check with your instructor to see if you will be using a cloud-based version of RStudio. Even if you will be using a cloud-based version, it is good to have a backup of the software on your computer. If you need or want to install R and RStudio on your computer, you can follow these instructions - [Installing R and RStudio](https://moderndive.com/1-getting-started.html#installing)
@@ -13,11 +15,18 @@ The directions below assume you have access to R and RStudio. Check with your in
 If you already have R and RStudio installed on your computer, then please update them if you do not have the latest versions. You can use the general instructions for how to update here (just note to use the latest versions of the programs and packages rather than the version listed here) - [I have R Installed](https://jennhuck.github.io/workshops/install_update_R.html#%E2%80%9Ci_have_r_installed%E2%80%9D)
 
 
-## Clone this repository from GitHub
+## Clone/copy this repository from GitHub
 
-(note: it might be helpful to open a duplicate window of this page next to this one or on a separate device so you can more easily read and follow the instructions while you complete these steps)
+This series of instructions will copy all the files you need from here on GitHub to your computer or cloud-based RStudio. 
 
-This series of instructions will copy all the files you need from here on GitHub to your computer or cloud-based RStudio
+For **Option 1 (if you have Git): Clone this repository from GitHub**, you must have Git installed and setup to work with RStudio for this to work. If you are working on RStudio Cloud or an RStudio Server then Git is already set up for you and you can follow the **Option 1** instructions
+
+If you don't have Git installed and you are using a local desktop version of R and RStudio, you can follow these instructions to install and setup Git on your computer (note that this is rather involved, but you only have to do it once): [Happy Git and GitHub for the useR](https://happygitwithr.com/index.html)
+
+Alternatively, you can skip this section and go to **Option 2: Download this repository from GitHub using the usethis package** below
+
+
+### Option 1 (if you have Git): Clone this repository from GitHub
 
 1. First, click on the green "Code" button in the upper right of this page. 
 
@@ -32,7 +41,30 @@ Leave the default Project directory name as "introR4bio." Feel free to Browse to
 
 4. Click "Create Project" and then all the files you need will download into a folder called "introR4bio"
 
+### Option 2: Download this repository from GitHub using the usethis package
+
+1. In RStudio, install the usethis package by typing this code into the RStudio console and press Enter:
+
+`install.packages("usethis")`
+
+2. Once the package is installed, then you need to load usethis. This is similar to opening an app on your phone or computer. To load usethis, type this code into the RStudio console and press Enter:
+
+`library(usethis)`
+
+3. To download the repository, use this code:
+
+`use_course("https://github.com/marneypratt/introR4bio/archive/master.zip")`
+
+4. When told "Dowloading into..." "OK to proceed?" select the number for the option next to "I agree" and note what directory it is putting the zipped file into. (Note that you can move the files later if needed)
+
+5. When asked "Shall we delete the ZIP file" select the number for the option that says "Definitely"
+
+A new session of RStudio will open with the unzipped folder containing all the files you need ready for you.
+
+
 ## Install Swirl and Intro to R for Biology Course
+
+Once you have all the files from the **Intro to R for Biology** repository into RStudio, then you are ready to install swirl and the **Intro to R for Biology** swirl course.
 
 1. The first time you use swirl, you will have to install the package. You will only need to do this once. It is similar to downloading an app to your phone or computer. To install swirl, type this code into the RStudio console and press Enter:
 
