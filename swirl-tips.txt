@@ -1,0 +1,3 @@
+If you get stuck at a prompt that is asking you to make a selection, try typing 0 to get back to a higher menu, or press Esc to help you get out
+
+If you get stuck at a console prompt while in swirl (>), you can try typing skip() to skip a question or type bye() to get out of swirl
