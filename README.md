@@ -2,15 +2,15 @@
 
 ### by Marney Pratt
 
-This webpage details how to download and install the **Intro to R for Biology** Swirl course. Please visit the **[Swirl website](https://swirlstats.com/)** for more information about how to install or develop interactive Swirl lessons.<br>
+This webpage details how to download and install the **Intro to R for Biology** Swirl course. Please visit the <a href="https://swirlstats.com/" target="_blank">Swirl website</a> for more information about how to install or develop interactive Swirl lessons.<br>
 
 Please feel free to download and use the **Intro to R for Biology** Swirl course for educational purposes, no commercial uses are allowed.
 
 ## Install/Update R and RStudio
 
-The directions below assume you have access to R and RStudio. Check with your instructor to see if you will be using a cloud-based version of RStudio. Even if you will be using a cloud-based version, it is good to have a backup of the software on your computer. If you need or want to install R and RStudio on your computer, you can follow these instructions - **[Installing R and RStudio](https://moderndive.com/1-getting-started.html#installing)**. 
+The directions below assume you have access to R and RStudio. Check with your instructor to see if you will be using a cloud-based version of RStudio. Even if you will be using a cloud-based version, it is good to have a backup of the software on your computer. If you need or want to install R and RStudio on your computer, you can follow these instructions - <a href="https://moderndive.com/1-getting-started.html#installing" target="_blank">Installing R and RStudio</a>
 
-If you already have R and RStudio installed on your computer, then please update them if you do not have the latest versions. You can use the general instructions for how to update here (just note to use the latest versions of the programs and packages rather than the version listed here) - **[I have R Installed](https://jennhuck.github.io/workshops/install_update_R.html#%E2%80%9Ci_have_r_installed%E2%80%9D)**
+If you already have R and RStudio installed on your computer, then please update them if you do not have the latest versions. You can use the general instructions for how to update here (just note to use the latest versions of the programs and packages rather than the version listed here) - <a href="https://jennhuck.github.io/workshops/install_update_R.html#%E2%80%9Ci_have_r_installed%E2%80%9D">I have R Installed</a>
 
 
 ## Clone this repository from GitHub
@@ -18,8 +18,16 @@ If you already have R and RStudio installed on your computer, then please update
 (note: it might be helpful to open a duplicate window of this page next to this one or on a separate device so you can more easily read and follow the instructions while you complete these steps)
 
 1. First, click on the green "Code" button in the upper right of this page. 
+
 2. Click on the clipboard icon next to the URL under "Clone with HTTPS" to copy the location of this GitHub repository.
-3. Open RStudio, and select "File" --> "New Project" --> "Version Control" --> "Git" and paste the URL you copied above in the "Repository URL:"   (to paste, use ctrl+V (Windows) or cmd+V (Mac) or right-click and select paste).  Leave the default Project directory name as "introR4bio." Feel free to Browse to find a good location for this project folder to be created.
+
+3. Open RStudio, and select 
+
+"File" --> "New Project" --> "Version Control" --> "Git" and paste the URL you copied above in the "Repository URL:"   
+(to paste, use ctrl+V (Windows) or cmd+V (Mac) or right-click and select paste)
+
+Leave the default Project directory name as "introR4bio." Feel free to Browse to find a good location for this project folder to be created.
+
 4. Click "Create Project" and then all the files you need will download into a folder called "introR4bio"
 
 ## Install Swirl and Intro to R for Biology Course
@@ -53,7 +61,9 @@ then type this code into the RStudio console and press Enter:
 
 If you need help while going through a swirl lesson, you can click on the "swirl-commands.txt" or "swirl-tips.txt" files in the IntroR4bio folder
 
-You can also open the **[Resources for the Intro to R for Biology course webpage](https://docs.google.com/document/d/e/2PACX-1vTRMYrJYm4DtGURF6voY0AwhFFGnIvjYleoC5qgH5uVzRmCNXO9EJuKLK5ihvH3rMvWtnuPZ_7qU13i/pub) and keep that open while you work through the lessons.
+You can also open the <a href="https://docs.google.com/document/d/e/2PACX-1vTRMYrJYm4DtGURF6voY0AwhFFGnIvjYleoC5qgH5uVzRmCNXO9EJuKLK5ihvH3rMvWtnuPZ_7qU13i/pub">Resources for the Intro to R for Biology course webpage</a> and keep that open while you work through the lessons.
+
+
 
 ## Enjoy Learning how to Use R!
 
