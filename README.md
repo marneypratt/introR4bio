@@ -36,11 +36,15 @@ Leave the default Project directory name as "introR4bio." Feel free to Browse to
 
 1. The first time you use swirl, you will have to install the package. You will only need to do this once. It is similar to downloading an app to your phone or computer. To install swirl, type this code into the RStudio console and press Enter:
 
-`install.packages("swirl","RCurl")`
+`install.packages("swirl")`
 
 Be patient, it sometimes takes a little while for the package to download and install.
 
-2. Once the swirl package is installed, then you need to load it. This is similar to opening an app on your phone or computer. You will need to load the swirl package anytime you start a new session of R in RStudio. To load swirl, type this code into the RStudio console and press Enter:
+Note that there may be other packages you might need to install. For example, when I recently installed swirl, I had to also install the RCurl package to get swirl to load properly. It is also a good idea to make sure you have the most up to date version of the tidyverse package since we will use many tidyverse functions in the Intro to R for Biology swirl lessons. To install additional packages, use the `install.packages()` function (make sure to put the package name in quotes within the parentheses). Aslo note that you can install more than one package at once.  For example, to install RCurl and the tidyverse, use the following code:
+
+`install.packages("RCurl","tidyverse")`
+
+2. Once the swirl package is installed (along with any other packages you might need), then you need to load swirl. This is similar to opening an app on your phone or computer. You will need to load the swirl package anytime you start a new session of R in RStudio. To load swirl, type this code into the RStudio console and press Enter:
 
 `library(swirl)`
 

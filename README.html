@@ -400,8 +400,10 @@ summary {
 </ol>
 <p><code>install.packages(&quot;swirl&quot;)</code></p>
 <p>Be patient, it sometimes takes a little while for the package to download and install.</p>
+<p>Note that there may be other packages you might need to install. For example, when I recently installed swirl, I had to also install the RCurl package to get swirl to load properly. It is also a good idea to make sure you have the most up to date version of the tidyverse package since we will use many tidyverse functions in the Intro to R for Biology swirl lessons. To install additional packages, use the <code>install.packages()</code> function (make sure to put the package name in quotes within the parentheses). Aslo note that you can install more than one package at once. For example, to install RCurl and the tidyverse, use the following code:</p>
+<p><code>install.packages(&quot;RCurl&quot;,&quot;tidyverse&quot;)</code></p>
 <ol start="2" style="list-style-type: decimal">
-<li>Once the swirl package is installed, then you need to load it. This is similar to opening an app on your phone or computer. You will need to load the swirl package anytime you start a new session of R in RStudio. To load swirl, type this code into the RStudio console and press Enter:</li>
+<li>Once the swirl package is installed (along with any other packages you might need), then you need to load swirl. This is similar to opening an app on your phone or computer. You will need to load the swirl package anytime you start a new session of R in RStudio. To load swirl, type this code into the RStudio console and press Enter:</li>
 </ol>
 <p><code>library(swirl)</code></p>
 <ol start="3" style="list-style-type: decimal">
@@ -410,10 +412,12 @@ summary {
 <p><code>install_course()</code></p>
 <p>When prompted, select the file called “Intro_to_R_for_Biology.swc”</p>
 <p>This is a compressed folder full of files in a special file format, .swc, unique to swirl. When you use the <code>install_course()</code> function to install this course, it will unpack and load the course for you.</p>
-<p>then type this code into the RStudio console and press Enter:</p>
-<p><code>swirl()</code></p>
 <ol start="4" style="list-style-type: decimal">
-<li><p>Swirl will ask you to give a name and then give a few other prompts to help you learn how it works. Follow the instructions until you get to a prompt that asks you to “Please choose a course, or type 0 to exit swirl.” At this prompt, select the option next to “Intro to R for Biology”.</p></li>
+<li>Next, type this code into the RStudio console and press Enter:</li>
+</ol>
+<p><code>swirl()</code></p>
+<ol start="5" style="list-style-type: decimal">
+<li><p>Swirl will ask you to give a name (it will use this to remember you from session to session, nothing is shared publicly) and then it will give a few other prompts to help you learn how swirl works. Follow the instructions until you get to a prompt that asks you to “Please choose a course, or type 0 to exit swirl.” At this prompt, select the option next to “Intro to R for Biology”.</p></li>
 <li><p>Once you are in the course, you will see several lessons. Start with “1: Basics” or choose the lesson your instructor has told you to choose.</p></li>
 </ol>
 <p>If you need help while going through a swirl lesson, you can click on the “swirl-commands.txt” or “swirl-tips.txt” files in the IntroR4bio folder</p>
