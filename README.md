@@ -36,7 +36,7 @@ Leave the default Project directory name as "introR4bio." Feel free to Browse to
 
 1. The first time you use swirl, you will have to install the package. You will only need to do this once. It is similar to downloading an app to your phone or computer. To install swirl, type this code into the RStudio console and press Enter:
 
-`install.packages("swirl")`
+`install.packages("swirl","RCurl")`
 
 Be patient, it sometimes takes a little while for the package to download and install.
 
