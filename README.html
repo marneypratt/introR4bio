@@ -371,8 +371,11 @@ summary {
 <h3>by Marney Pratt</h3>
 <p>This webpage details how to download and install the <strong>Intro to R for Biology</strong> Swirl course. Please visit the <strong><a href="https://swirlstats.com/">Swirl website</a></strong> for more information about how to install or develop interactive Swirl lessons.<br></p>
 <p>Please feel free to download and use the <strong>Intro to R for Biology</strong> Swirl course for educational purposes, no commercial uses are allowed.</p>
+</div>
+<div id="installupdate-r-and-rstudio" class="section level2">
+<h2>Install/Update R and RStudio</h2>
 <p>The directions below assume you have access to R and RStudio. Check with your instructor to see if you will be using a cloud-based version of RStudio. Even if you will be using a cloud-based version, it is good to have a backup of the software on your computer. If you need or want to install R and RStudio on your computer, you can follow these instructions - <strong><a href="https://moderndive.com/1-getting-started.html#installing">Installing R and RStudio</a></strong>.</p>
-<p>If you already have R and RStudio installed on your computer, make sure you have the latest versions and update them if you do not have the latest versions. You can use the general instructions for how to update here (just note to use the latest versions rather than the version listed here) <strong><a href="https://jennhuck.github.io/workshops/install_update_R.html#%E2%80%9Ci_have_r_installed%E2%80%9D">I have R Installed</a></strong></p>
+<p>If you already have R and RStudio installed on your computer, then please update them if you do not have the latest versions. You can use the general instructions for how to update here (just note to use the latest versions of the programs and packages rather than the version listed here) - <strong><a href="https://jennhuck.github.io/workshops/install_update_R.html#%E2%80%9Ci_have_r_installed%E2%80%9D">I have R Installed</a></strong></p>
 </div>
 <div id="clone-this-repository-from-github" class="section level2">
 <h2>Clone this repository from GitHub</h2>
@@ -384,12 +387,34 @@ summary {
 <li>Click “Create Project” and then all the files you need will download into a folder called “introR4bio”</li>
 </ol>
 </div>
-<div id="install-swirl-and-course" class="section level2">
-<h2>Install Swirl and Course</h2>
+<div id="install-swirl-and-intro-to-r-for-biology-course" class="section level2">
+<h2>Install Swirl and Intro to R for Biology Course</h2>
 <ol style="list-style-type: decimal">
 <li>The first time you use swirl, you will have to install the package. You will only need to do this once. It is similar to downloading an app to your phone or computer. To install swirl, type this code into the RStudio console and press Enter:</li>
 </ol>
 <p><code>install.packages(&quot;swirl&quot;)</code></p>
+<p>Be patient, it sometimes takes a little while for the package to download and install.</p>
+<ol start="2" style="list-style-type: decimal">
+<li>Once the swirl package is installed, then you need to load it. This is similar to opening an app on your phone or computer. You will need to load the swirl package anytime you start a new session of R in RStudio. To load swirl, type this code into the RStudio console and press Enter:</li>
+</ol>
+<p><code>library(swirl)</code></p>
+<ol start="3" style="list-style-type: decimal">
+<li>After swirl loads, you will need to install the <strong>Intro to R for Biology</strong> Swirl course by typing the following code into the console and pressing Enter:</li>
+</ol>
+<p><code>install_course()</code></p>
+<p>When prompted, select the file called “Intro_to_R_for_Biology.swc”</p>
+<p>This is a compressed folder full of files in a special file format, .swc, unique to swirl. When you use the <code>install_course()</code> function to install this course, it will unpack and load the course for you.</p>
+<p>then type this code into the RStudio console and press Enter:</p>
+<p><code>swirl()</code></p>
+<ol start="4" style="list-style-type: decimal">
+<li><p>Swirl will ask you to give a name and then give a few other prompts to help you learn how it works. Follow the instructions until you get to a prompt that asks you to “Please choose a course, or type 0 to exit swirl.” At this prompt, select the option next to “Intro to R for Biology”.</p></li>
+<li><p>Once you are in the course, you will see several lessons. Start with “1: Basics” or choose the lesson your instructor has told you to choose.</p></li>
+</ol>
+<p>If you need help while going through a swirl lesson, you can click on the “swirl-commands.txt” or “swirl-tips.txt” files in the IntroR4bio folder</p>
+<p>You can also open the **<a href="https://docs.google.com/document/d/e/2PACX-1vTRMYrJYm4DtGURF6voY0AwhFFGnIvjYleoC5qgH5uVzRmCNXO9EJuKLK5ihvH3rMvWtnuPZ_7qU13i/pub">Resources for the Intro to R for Biology course webpage</a> and keep that open while you work through the lessons.</p>
+</div>
+<div id="enjoy-learning-how-to-use-r" class="section level2">
+<h2>Enjoy Learning how to Use R!</h2>
 </div>
 </div>
 
