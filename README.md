@@ -55,7 +55,7 @@ Leave the default Project directory name as "introR4bio." Feel free to Browse to
 
 `use_course("https://github.com/marneypratt/introR4bio/archive/master.zip")`
 
-4. When told "Dowloading into..." "OK to proceed?" select the number for the option next to "I agree" and note what directory it is putting the zipped file into. (Note that you can move the files later if needed)
+4. When told "Downloading into..." "OK to proceed?" select the number for the option next to "I agree" and note what directory it is putting the zipped file into. (Note that you can move the files later if needed)
 
 5. When asked "Shall we delete the ZIP file" select the number for the option that says "Definitely"
 
