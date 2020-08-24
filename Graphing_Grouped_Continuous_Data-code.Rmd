@@ -95,11 +95,12 @@ Remember, box plots are not useful for very small sample sizes (< 20 or so).  Yo
 
 ## Plain Box Plots with Means
 
+This code will give a box plot with the mean indicated.  Points indicate outliers
+
 ```{r plain box}
 
-# This code will give a box plot with the mean indicated with an X (erase the stat_summary function if you want to remove the mean)
-
-# Box plot of the EHS density at all 4 locations, X = mean, outliers showing as points
+# Box plot of the EHS density at all 4 locations, X = mean
+# Erase the stat_summary function if you want to remove the mean
 EHS.box <-ggplot(data = hemlock, aes(x= Location, y = EHS, color=Location))+ 
   stat_boxplot(geom ='errorbar', width = 0.1,  na.rm = TRUE, lwd=0.75, show.legend = FALSE) +
   geom_boxplot(width = 0.5, na.rm = TRUE,lwd=0.75, show.legend = FALSE) +
