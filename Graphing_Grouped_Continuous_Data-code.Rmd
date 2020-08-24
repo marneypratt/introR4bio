@@ -1,0 +1,297 @@
+---
+title: "R Code for Grouped Graphs Swirl Lesson"
+author: "Marney Pratt"
+date: "8/22/2020"
+output: html_document
+---
+
+# Load Packages and Import Data
+
+```{r}
+
+library(readr) ##for importing data
+library(ggplot2)  ##for graphing
+library(dplyr) ## for filtering, summarising, and other data wrangling
+library(ggbeeswarm) #for making symmetrical jittering (beeswarm) of points
+library(curl) #used for loading data from websites
+
+
+#import hemlock data file
+hemlock <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vT-Uo5Gs2dcR6f6_PFrZwkaSrojsBCFt1qvVNU0PXn4RHVe3_GDzNL3BCxkkp6eIhjkfKw3S6YcX6wz/pub?output=csv", 
+                    col_types = cols(SamplingDate = col_date(format = "%m/%d/%Y"), 
+                                     Location = col_factor()))
+
+```
+
+
+# Bar Graph of Means and Standard Errors
+
+```{r bar with SE}
+
+##calculate descriptive stats and SE for EHS density
+EHS.sum <- hemlock %>%
+  group_by(Location) %>%
+  summarise(mean = mean(EHS), 
+            sd = sd(EHS), 
+            n = n()) %>%
+  mutate(sem = sd/(sqrt(n)))
+print(EHS.sum)
+
+
+##Bar plot with mean and SE
+g.bar <- ggplot(EHS.sum, aes(x=Location,y=mean, fill))+
+  geom_bar(stat="identity",  width = 0.5, show.legend=FALSE, fill = "steelblue")+
+  geom_errorbar(aes(ymin=mean-sem, ymax=mean+sem), width=0.1, size=1) +
+  ylab("EHS Density (insects/cm)") +
+  xlab("Location") +
+  coord_cartesian(xlim = c(0.5,4.5), expand=FALSE) +
+  theme_classic(base_size=16) 
+print(g.bar)
+
+ggsave("bar.jpg", height = 7, width = 8, units = "in", dpi = 500)
+
+```
+
+
+# Histograms
+
+```{r histogram}
+
+# A histogram is only useful when there are enough data points.  
+# A good rule of thumb is that a histogram is useful when your sample size in each group is 20-30 or more.  
+# If your N < 20 for each group, then it may not be useful to visualize with a histogram. 
+
+# To make a histogram of just one location, first you have to filter for a location (in this case FLH)
+FLH.data <- hemlock %>% filter(Location == "FLH")
+
+##Histogram of the EHS density at the FLH location
+FLH.hist <- ggplot(data = FLH.data, aes(x = EHS))+ 
+  geom_histogram(binwidth = 0.4, color = "white", fill = "steelblue", show.legend = FALSE) +
+  xlab("EHS Density (insects/cm)") +
+  ylab("Count") +
+  coord_cartesian(expand=TRUE) +
+  theme_classic(base_size=14) 
+print(FLH.hist)
+
+##Histogram of the HWA density for all 4 locations
+g.hist <- ggplot(data = hemlock, aes(x = EHS, fill=Location))+ 
+  geom_histogram(binwidth = 0.4, color = "white", show.legend = FALSE) +
+  facet_grid(Location ~ .) +
+  xlab("EHS Density (insects/cm)") +
+  ylab("Count") +
+  coord_cartesian(expand=TRUE) +
+  theme_classic(base_size=14) 
+print(g.hist)
+
+ggsave("histogram.jpg", height = 7, width = 8, units = "in", dpi = 500)
+
+```
+
+# Box Plots
+Type ?geom_boxplot in the console or search for geom_boxplot in the help window to pull up the help file.  Scroll down to "Summary statistics" to make sure you understand what the box plot is showing and describe ALL the symbols accurately in your figure legend.
+
+Remember, box plots are not useful for very small sample sizes (< 20 or so).  You need an absolute minimum of 5 points, but it is better to have more points for a box plot.  If your N < 10 for each group, then it is probably not useful to visualize with a box plot.
+
+## Plain Box Plots with Means
+
+```{r plain box}
+
+#This code will give a box plot with the mean indicated with an X (erase the stat_summary function if you want to remove the mean)
+
+##Box plot of the EHS density at all 4 locations, X = mean, outliers showing as points
+EHS.box <-ggplot(data = hemlock, aes(x= Location, y = EHS, color=Location))+ 
+  stat_boxplot(geom ='errorbar', width = 0.1,  na.rm = TRUE, lwd=0.75, show.legend = FALSE) +
+  geom_boxplot(width = 0.5, na.rm = TRUE,lwd=0.75, show.legend = FALSE) +
+  stat_summary(fun=mean, geom="point",  shape=4, size=2,  
+               na.rm = TRUE, show.legend = FALSE, colour = "black", stroke = 2) +
+  ylab("EHS Density (insects/cm)") +
+  xlab("Location") +
+  coord_cartesian(ylim=c(0,11.5),expand=TRUE) +
+  theme_classic(base_size=20) 
+print(EHS.box)
+
+ggsave("box.jpg", height = 7, width = 8, units = "in", dpi = 500)
+
+
+```
+
+## Box Plots with Random Jittered Points
+
+```{r box plus random jittered points}
+
+#This code will give a box plot with the mean indicated with an X (erase the stat_summary function if you want to remove the mean)
+#All points are included and randomly jittered to avoid overlapping
+
+##Box plot of the EHS density at all 4 locations, X = mean, all points showing
+EHS.box2 <-ggplot(data = hemlock, aes(x= Location, y = EHS))+ 
+  geom_point(aes(x= Location, y = EHS, fill = Location), shape=21, size=1, alpha = 0.5,
+             position=position_jitterdodge(jitter.width=0.8), show.legend=FALSE) +
+  stat_boxplot(geom ='errorbar', width = 0.1,  na.rm = TRUE, lwd=0.75) +
+  geom_boxplot(width = 0.5, na.rm = TRUE, outlier.shape= NA, alpha = 0.1, lwd=0.75) +
+  stat_summary(fun=mean, geom="point",  shape=4, size=2,  
+               na.rm = TRUE, show.legend = FALSE, colour = "black", stroke = 2) +
+  ylab("EHS Density (insects/cm)") +
+  xlab("Location") +
+  coord_cartesian(expand=TRUE) +
+  theme_classic(base_size=20) 
+print(EHS.box2)
+
+ggsave("box_random.jpg", height = 7, width = 8, units = "in", dpi = 500)
+
+```
+## Box Plots with symmetric jittered points - beeswarm
+
+```{r box plus beeswarm points}
+
+#This code will give a box plot with the mean indicated with an X (erase the stat_summary function if you want to remove the mean)
+#All points are included and symmetrically jittered using beeswarm to avoid overlapping
+
+
+##Box plot of the EHS density at all 4 locations, X = mean, all points showing
+EHS.box3 <-ggplot(data = hemlock, aes(x= Location, y = EHS))+ 
+  geom_beeswarm(aes(x= Location, y = EHS, fill=Location), shape=21, size=1, 
+                   alpha=0.5, priority = "random", show.legend=FALSE) +
+  stat_boxplot(geom ='errorbar', width = 0.1,  na.rm = TRUE, lwd=0.75) +
+  geom_boxplot(width = 0.5, na.rm = TRUE, outlier.shape= NA, alpha = 0.1, lwd=0.75) +
+  stat_summary(fun=mean, geom="point",  shape=4, size=2,  
+               na.rm = TRUE, show.legend = FALSE, colour = "black", stroke = 2) +
+  ylab("EHS Density (insects/cm)") +
+  xlab("Location") +
+  coord_cartesian(expand=TRUE) +
+  theme_classic(base_size=20) 
+print(EHS.box3)
+
+ggsave("box_beeswarm.jpg", height = 7, width = 8, units = "in", dpi = 500)
+
+```
+
+## Box Plots with symmetric jittered points - quasirandom
+
+```{r box plus quasirandom points}
+
+#This code will give a box plot with the mean indicated with an X (erase the stat_summary function if you want to remove the mean)
+#All points are included and symmetrically jittered using quasirandom to avoid overlapping
+
+##Box plot of the EHS density at all 4 locations, X = mean, all points showing
+EHS.box4 <-ggplot(data = hemlock, aes(x= Location, y = EHS))+ 
+  geom_quasirandom(aes(x= Location, y = EHS, fill=Location), shape=21, size=1, 
+                   alpha=0.5, width=0.3, show.legend=FALSE) +
+  stat_boxplot(geom ='errorbar', width = 0.1,  na.rm = TRUE, lwd=0.75) +
+  geom_boxplot(width = 0.5, na.rm = TRUE, outlier.shape= NA, alpha = 0.1, lwd=0.75) +
+  stat_summary(fun=mean, geom="point",  shape=4, size=2,  
+               na.rm = TRUE, show.legend = FALSE, colour = "black", stroke = 2) +
+  ylab("EHS Density (insects/cm)") +
+  xlab("Location") +
+  coord_cartesian(expand=TRUE) +
+  theme_classic(base_size=20) 
+print(EHS.box4)
+
+ggsave("box_quasi.jpg", height = 7, width = 8, units = "in", dpi = 500)
+
+```
+# Violin Plots
+If the sample size is very large, it can be helpful to use a violin plot that shows the distribution (kind of like a probability density curve mirrored on its side)
+
+```{r violin}
+
+#calculate the sample size for each group first 
+sample_size = hemlock %>% group_by(Location) %>% summarize (num=n())
+
+#violin plot with box plots and sample sizes
+EHS.violin <- hemlock %>% 
+  left_join(sample_size) %>% 
+  mutate(myaxis = paste0(Location, "\n", "n=", num)) %>% 
+  ggplot(aes(x=myaxis, y=EHS, fill=Location)) +
+    geom_violin(width=1.4) +
+    geom_boxplot(width=0.08, color="black") +
+    ylab("EHS Density (insects/cm)") +
+    xlab("Location") +
+    theme_classic(base_size=18) +
+    theme(legend.position="none")
+print(EHS.violin)
+
+ggsave("violin.jpg", height = 7, width = 8, units = "in", dpi = 500)
+
+```
+
+# Dot Plots
+
+An increasingly popular way of visualizing data when the sample size is small enough is to show all the points and a measure of central tendency.  Below are three options for how to add points (1) random jitter, (2) beeswarm, (3) quasirandom.  These examples all use the mean, to make graphs with the median, just replace the word mean with median everywhere in the graph.
+
+## Dot Plots with Random Jitter
+
+```{r dot random}
+
+#Filter for one semester (Winter 2019)
+hemlock$SamplingDate <- as.Date(hemlock$SamplingDate, "%m/%d/%Y")
+small <- hemlock %>% filter (SamplingDate > as.Date("2018-11-20"))
+
+#Dot plot with mean
+dot.mean <-  ggplot(data = small, aes(x= Location, y = EHS))+ 
+  geom_point(aes(x= Location, y = EHS, fill = Location), shape=21, size=3, alpha=0.75,
+             position=position_jitterdodge(jitter.width=0.8), show.legend=FALSE) +
+  stat_summary(fun = mean, fun.min = mean, fun.max = mean, geom = "crossbar", 
+               width = 0.5, size = 0.75, na.rm = TRUE, show.legend = FALSE, colour = "black") +
+  ylab("EHS Density (insects/cm)") +
+  xlab("Location") +
+  coord_cartesian(expand=TRUE) +
+  theme_classic(base_size=20) +
+  theme(legend.position="none")
+print(dot.mean)
+
+ggsave("dot.jpg", height = 7, width = 8, units = "in", dpi = 500)
+
+```
+
+
+## Dot Plots with Symmetric Beeswarm Jitter
+
+```{r dot beeswarm}
+
+#Filter for one semester (Winter 2019)
+hemlock$SamplingDate <- as.Date(hemlock$SamplingDate, "%m/%d/%Y")
+small <- hemlock %>% filter (SamplingDate > as.Date("2018-11-20"))
+
+#Dot plot with mean
+dot.mean <-  ggplot(data = small, aes(x= Location, y = EHS))+ 
+  geom_beeswarm(aes(x= Location, y = EHS, fill=Location), shape=21, size=3, 
+                   alpha=0.75, cex=2.25 , priority = "ascending", show.legend=FALSE) +
+  stat_summary(fun = mean, fun.min = mean, fun.max = mean, geom = "crossbar", 
+               width = 0.5, size = 0.75, na.rm = TRUE, 
+               show.legend = FALSE, colour = "black") +
+  ylab("EHS Density (insects/cm)") +
+  xlab("Location") +
+  coord_cartesian(expand=TRUE) +
+  theme_classic(base_size=20) +
+  theme(legend.position="none")
+print(dot.mean)
+
+ggsave("dot_beeswarm.jpg", height = 7, width = 8, units = "in", dpi = 500)
+
+```
+
+## Dot Plots with Symmetric Quasirandom Jitter
+
+```{r dot quasirandom}
+
+#Filter for one semester (Winter 2019)
+hemlock$SamplingDate <- as.Date(hemlock$SamplingDate, "%m/%d/%Y")
+small <- hemlock %>% filter (SamplingDate > as.Date("2018-11-20"))
+
+#Dot plot with mean
+dot.mean <-  ggplot(data = small, aes(x= Location, y = EHS))+ 
+  geom_quasirandom(aes(x= Location, y = EHS, fill=Location), shape=21, size=3, 
+                   alpha=0.75, width=0.2, show.legend=FALSE) +
+  stat_summary(fun = mean, fun.min = mean, fun.max = mean, geom = "crossbar", 
+               width = 0.5, size = 0.75, na.rm = TRUE, 
+               show.legend = FALSE, colour = "black") +
+  ylab("EHS Density (insects/cm)") +
+  xlab("Location") +
+  coord_cartesian(expand=TRUE) +
+  theme_classic(base_size=20) +
+  theme(legend.position="none")
+print(dot.mean)
+
+ggsave("dot_quasi.jpg", height = 7, width = 8, units = "in", dpi = 500)
+
+```
