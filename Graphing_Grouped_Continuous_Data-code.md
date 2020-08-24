@@ -6,6 +6,7 @@ Marney Pratt
 # Load Packages and Import Data
 
 ``` r
+# load packages
 library(readr) ##for importing data
 library(ggplot2)  ##for graphing
 library(dplyr) ## for filtering, summarising, and other data wrangling
@@ -13,7 +14,7 @@ library(ggbeeswarm) #for making symmetrical jittering (beeswarm) of points
 library(curl) #used for loading data from websites
 
 
-#import hemlock data file
+# import hemlock data file
 hemlock <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vT-Uo5Gs2dcR6f6_PFrZwkaSrojsBCFt1qvVNU0PXn4RHVe3_GDzNL3BCxkkp6eIhjkfKw3S6YcX6wz/pub?output=csv", 
                     col_types = cols(SamplingDate = col_date(format = "%m/%d/%Y"), 
                                      Location = col_factor()))
@@ -22,26 +23,16 @@ hemlock <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vT-Uo5Gs2dc
 # Bar Graph of Means and Standard Errors
 
 ``` r
-##calculate descriptive stats and SE for EHS density
+# calculate descriptive stats and SE for EHS density
 EHS.sum <- hemlock %>%
   group_by(Location) %>%
   summarise(mean = mean(EHS), 
             sd = sd(EHS), 
             n = n()) %>%
   mutate(sem = sd/(sqrt(n)))
-print(EHS.sum)
-```
 
-    ## # A tibble: 4 x 5
-    ##   Location  mean    sd     n   sem
-    ##   <fct>    <dbl> <dbl> <int> <dbl>
-    ## 1 FLE       4.01  3.74   218 0.254
-    ## 2 FLH       1.00  1.54   214 0.105
-    ## 3 MCL       3.62  3.39    59 0.441
-    ## 4 SMC       1.27  1.41    48 0.204
 
-``` r
-##Bar plot with mean and SE
+# Bar plot with mean and SE
 g.bar <- ggplot(EHS.sum, aes(x=Location,y=mean, fill))+
   geom_bar(stat="identity",  width = 0.5, show.legend=FALSE, fill = "steelblue")+
   geom_errorbar(aes(ymin=mean-sem, ymax=mean+sem), width=0.1, size=1) +
@@ -55,6 +46,7 @@ print(g.bar)
 ![](Graphing_Grouped_Continuous_Data-code_files/figure-gfm/bar%20with%20SE-1.png)<!-- -->
 
 ``` r
+# save the graph
 ggsave(path="figures", filename="bar.jpg", height = 7, width = 8, units = "in", dpi = 500)
 ```
 
@@ -97,6 +89,7 @@ print(g.hist)
 ![](Graphing_Grouped_Continuous_Data-code_files/figure-gfm/histogram-2.png)<!-- -->
 
 ``` r
+# save the graph
 ggsave(path="figures", filename="histogram.jpg", height = 7, width = 8, units = "in", dpi = 500)
 ```
 
@@ -115,9 +108,9 @@ probably not useful to visualize with a box plot.
 ## Plain Box Plots with Means
 
 ``` r
-#This code will give a box plot with the mean indicated with an X (erase the stat_summary function if you want to remove the mean)
+# This code will give a box plot with the mean indicated with an X (erase the stat_summary function if you want to remove the mean)
 
-##Box plot of the EHS density at all 4 locations, X = mean, outliers showing as points
+# Box plot of the EHS density at all 4 locations, X = mean, outliers showing as points
 EHS.box <-ggplot(data = hemlock, aes(x= Location, y = EHS, color=Location))+ 
   stat_boxplot(geom ='errorbar', width = 0.1,  na.rm = TRUE, lwd=0.75, show.legend = FALSE) +
   geom_boxplot(width = 0.5, na.rm = TRUE,lwd=0.75, show.legend = FALSE) +
@@ -133,6 +126,7 @@ print(EHS.box)
 ![](Graphing_Grouped_Continuous_Data-code_files/figure-gfm/plain%20box-1.png)<!-- -->
 
 ``` r
+# save the graph
 ggsave(path="figures", filename="box.jpg", height = 7, width = 8, units = "in", dpi = 500)
 ```
 
@@ -161,6 +155,7 @@ print(EHS.box2)
 ![](Graphing_Grouped_Continuous_Data-code_files/figure-gfm/box%20plus%20random%20jittered%20points-1.png)<!-- -->
 
 ``` r
+# save the graph
 ggsave(path="figures", filename="box_random.jpg", height = 7, width = 8, units = "in", dpi = 500)
 ```
 
@@ -190,6 +185,7 @@ print(EHS.box3)
 ![](Graphing_Grouped_Continuous_Data-code_files/figure-gfm/box%20plus%20beeswarm%20points-1.png)<!-- -->
 
 ``` r
+# save the graph
 ggsave(path="figures", filename="box_beeswarm.jpg", height = 7, width = 8, units = "in", dpi = 500)
 ```
 
@@ -219,6 +215,7 @@ print(EHS.box4)
 ![](Graphing_Grouped_Continuous_Data-code_files/figure-gfm/box%20plus%20quasirandom%20points-1.png)<!-- -->
 
 ``` r
+# save the graph
 ggsave(path="figures", filename="box_quasi.jpg", height = 7, width = 8, units = "in", dpi = 500)
 ```
 
@@ -229,10 +226,10 @@ that shows the distribution (kind of like a probability density curve
 mirrored on its side)
 
 ``` r
-#calculate the sample size for each group first 
+# calculate the sample size for each group first 
 sample_size = hemlock %>% group_by(Location) %>% summarize (num=n())
 
-#violin plot with box plots and sample sizes
+# violin plot with box plots and sample sizes
 EHS.violin <- hemlock %>% 
   left_join(sample_size) %>% 
   mutate(myaxis = paste0(Location, "\n", "n=", num)) %>% 
@@ -249,6 +246,7 @@ print(EHS.violin)
 ![](Graphing_Grouped_Continuous_Data-code_files/figure-gfm/violin-1.png)<!-- -->
 
 ``` r
+# save the graph
 ggsave(path="figures", filename="violin.jpg", height = 7, width = 8, units = "in", dpi = 500)
 ```
 
@@ -265,11 +263,11 @@ replace the word mean with median everywhere in the graph.
 ## Dot Plots with Random Jitter
 
 ``` r
-#Filter for one semester (Winter 2019)
+# Filter for one semester (Winter 2019)
 hemlock$SamplingDate <- as.Date(hemlock$SamplingDate, "%m/%d/%Y")
 small <- hemlock %>% filter (SamplingDate > as.Date("2018-11-20"))
 
-#Dot plot with mean
+# Dot plot with mean
 dot.mean <-  ggplot(data = small, aes(x= Location, y = EHS))+ 
   geom_point(aes(x= Location, y = EHS, fill = Location), shape=21, size=3, alpha=0.75,
              position=position_jitterdodge(jitter.width=0.8), show.legend=FALSE) +
@@ -286,17 +284,18 @@ print(dot.mean)
 ![](Graphing_Grouped_Continuous_Data-code_files/figure-gfm/dot%20random-1.png)<!-- -->
 
 ``` r
+# save the graph
 ggsave(path="figures", filename="dot.jpg", height = 7, width = 8, units = "in", dpi = 500)
 ```
 
 ## Dot Plots with Symmetric Beeswarm Jitter
 
 ``` r
-#Filter for one semester (Winter 2019)
+# Filter for one semester (Winter 2019)
 hemlock$SamplingDate <- as.Date(hemlock$SamplingDate, "%m/%d/%Y")
 small <- hemlock %>% filter (SamplingDate > as.Date("2018-11-20"))
 
-#Dot plot with mean
+# Dot plot with mean
 dot.mean <-  ggplot(data = small, aes(x= Location, y = EHS))+ 
   geom_beeswarm(aes(x= Location, y = EHS, fill=Location), shape=21, size=3, 
                    alpha=0.75, cex=2.25 , priority = "ascending", show.legend=FALSE) +
@@ -314,17 +313,18 @@ print(dot.mean)
 ![](Graphing_Grouped_Continuous_Data-code_files/figure-gfm/dot%20beeswarm-1.png)<!-- -->
 
 ``` r
+# save the graph
 ggsave(path="figures", filename="dot_beeswarm.jpg", height = 7, width = 8, units = "in", dpi = 500)
 ```
 
 ## Dot Plots with Symmetric Quasirandom Jitter
 
 ``` r
-#Filter for one semester (Winter 2019)
+# Filter for one semester (Winter 2019)
 hemlock$SamplingDate <- as.Date(hemlock$SamplingDate, "%m/%d/%Y")
 small <- hemlock %>% filter (SamplingDate > as.Date("2018-11-20"))
 
-#Dot plot with mean
+# Dot plot with mean
 dot.mean <-  ggplot(data = small, aes(x= Location, y = EHS))+ 
   geom_quasirandom(aes(x= Location, y = EHS, fill=Location), shape=21, size=3, 
                    alpha=0.75, width=0.2, show.legend=FALSE) +
@@ -342,5 +342,6 @@ print(dot.mean)
 ![](Graphing_Grouped_Continuous_Data-code_files/figure-gfm/dot%20quasirandom-1.png)<!-- -->
 
 ``` r
+# save the graph
 ggsave(path="figures", filename="dot_quasi.jpg", height = 7, width = 8, units = "in", dpi = 500)
 ```

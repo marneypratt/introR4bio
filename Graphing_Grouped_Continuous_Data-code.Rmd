@@ -9,6 +9,7 @@ output: rmarkdown::github_document
 
 ```{r load package and import data, message=FALSE}
 
+# load packages
 library(readr) ##for importing data
 library(ggplot2)  ##for graphing
 library(dplyr) ## for filtering, summarising, and other data wrangling
@@ -16,7 +17,7 @@ library(ggbeeswarm) #for making symmetrical jittering (beeswarm) of points
 library(curl) #used for loading data from websites
 
 
-#import hemlock data file
+# import hemlock data file
 hemlock <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vT-Uo5Gs2dcR6f6_PFrZwkaSrojsBCFt1qvVNU0PXn4RHVe3_GDzNL3BCxkkp6eIhjkfKw3S6YcX6wz/pub?output=csv", 
                     col_types = cols(SamplingDate = col_date(format = "%m/%d/%Y"), 
                                      Location = col_factor()))
@@ -28,17 +29,16 @@ hemlock <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vT-Uo5Gs2dc
 
 ```{r bar with SE, message=FALSE}
 
-##calculate descriptive stats and SE for EHS density
+# calculate descriptive stats and SE for EHS density
 EHS.sum <- hemlock %>%
   group_by(Location) %>%
   summarise(mean = mean(EHS), 
             sd = sd(EHS), 
             n = n()) %>%
   mutate(sem = sd/(sqrt(n)))
-print(EHS.sum)
 
 
-##Bar plot with mean and SE
+# Bar plot with mean and SE
 g.bar <- ggplot(EHS.sum, aes(x=Location,y=mean, fill))+
   geom_bar(stat="identity",  width = 0.5, show.legend=FALSE, fill = "steelblue")+
   geom_errorbar(aes(ymin=mean-sem, ymax=mean+sem), width=0.1, size=1) +
@@ -48,6 +48,7 @@ g.bar <- ggplot(EHS.sum, aes(x=Location,y=mean, fill))+
   theme_classic(base_size=16) 
 print(g.bar)
 
+# save the graph
 ggsave(path="figures", filename="bar.jpg", height = 7, width = 8, units = "in", dpi = 500)
 
 ```
@@ -82,6 +83,7 @@ g.hist <- ggplot(data = hemlock, aes(x = EHS, fill=Location))+
   theme_classic(base_size=14) 
 print(g.hist)
 
+# save the graph
 ggsave(path="figures", filename="histogram.jpg", height = 7, width = 8, units = "in", dpi = 500)
 
 ```
@@ -95,9 +97,9 @@ Remember, box plots are not useful for very small sample sizes (< 20 or so).  Yo
 
 ```{r plain box}
 
-#This code will give a box plot with the mean indicated with an X (erase the stat_summary function if you want to remove the mean)
+# This code will give a box plot with the mean indicated with an X (erase the stat_summary function if you want to remove the mean)
 
-##Box plot of the EHS density at all 4 locations, X = mean, outliers showing as points
+# Box plot of the EHS density at all 4 locations, X = mean, outliers showing as points
 EHS.box <-ggplot(data = hemlock, aes(x= Location, y = EHS, color=Location))+ 
   stat_boxplot(geom ='errorbar', width = 0.1,  na.rm = TRUE, lwd=0.75, show.legend = FALSE) +
   geom_boxplot(width = 0.5, na.rm = TRUE,lwd=0.75, show.legend = FALSE) +
@@ -109,8 +111,8 @@ EHS.box <-ggplot(data = hemlock, aes(x= Location, y = EHS, color=Location))+
   theme_classic(base_size=20) 
 print(EHS.box)
 
+# save the graph
 ggsave(path="figures", filename="box.jpg", height = 7, width = 8, units = "in", dpi = 500)
-
 
 ```
 
@@ -135,6 +137,7 @@ EHS.box2 <-ggplot(data = hemlock, aes(x= Location, y = EHS))+
   theme_classic(base_size=20) 
 print(EHS.box2)
 
+# save the graph
 ggsave(path="figures", filename="box_random.jpg", height = 7, width = 8, units = "in", dpi = 500)
 
 ```
@@ -160,6 +163,7 @@ EHS.box3 <-ggplot(data = hemlock, aes(x= Location, y = EHS))+
   theme_classic(base_size=20) 
 print(EHS.box3)
 
+# save the graph
 ggsave(path="figures", filename="box_beeswarm.jpg", height = 7, width = 8, units = "in", dpi = 500)
 
 ```
@@ -186,6 +190,7 @@ EHS.box4 <-ggplot(data = hemlock, aes(x= Location, y = EHS))+
   theme_classic(base_size=20) 
 print(EHS.box4)
 
+# save the graph
 ggsave(path="figures", filename="box_quasi.jpg", height = 7, width = 8, units = "in", dpi = 500)
 
 ```
@@ -194,10 +199,10 @@ If the sample size is very large, it can be helpful to use a violin plot that sh
 
 ```{r violin, message=FALSE, warning=FALSE}
 
-#calculate the sample size for each group first 
+# calculate the sample size for each group first 
 sample_size = hemlock %>% group_by(Location) %>% summarize (num=n())
 
-#violin plot with box plots and sample sizes
+# violin plot with box plots and sample sizes
 EHS.violin <- hemlock %>% 
   left_join(sample_size) %>% 
   mutate(myaxis = paste0(Location, "\n", "n=", num)) %>% 
@@ -210,6 +215,7 @@ EHS.violin <- hemlock %>%
     theme(legend.position="none")
 print(EHS.violin)
 
+# save the graph
 ggsave(path="figures", filename="violin.jpg", height = 7, width = 8, units = "in", dpi = 500)
 
 ```
@@ -224,11 +230,11 @@ These examples all use the mean, to make graphs with the median, just replace th
 
 ```{r dot random}
 
-#Filter for one semester (Winter 2019)
+# Filter for one semester (Winter 2019)
 hemlock$SamplingDate <- as.Date(hemlock$SamplingDate, "%m/%d/%Y")
 small <- hemlock %>% filter (SamplingDate > as.Date("2018-11-20"))
 
-#Dot plot with mean
+# Dot plot with mean
 dot.mean <-  ggplot(data = small, aes(x= Location, y = EHS))+ 
   geom_point(aes(x= Location, y = EHS, fill = Location), shape=21, size=3, alpha=0.75,
              position=position_jitterdodge(jitter.width=0.8), show.legend=FALSE) +
@@ -241,6 +247,7 @@ dot.mean <-  ggplot(data = small, aes(x= Location, y = EHS))+
   theme(legend.position="none")
 print(dot.mean)
 
+# save the graph
 ggsave(path="figures", filename="dot.jpg", height = 7, width = 8, units = "in", dpi = 500)
 
 ```
@@ -250,11 +257,11 @@ ggsave(path="figures", filename="dot.jpg", height = 7, width = 8, units = "in", 
 
 ```{r dot beeswarm}
 
-#Filter for one semester (Winter 2019)
+# Filter for one semester (Winter 2019)
 hemlock$SamplingDate <- as.Date(hemlock$SamplingDate, "%m/%d/%Y")
 small <- hemlock %>% filter (SamplingDate > as.Date("2018-11-20"))
 
-#Dot plot with mean
+# Dot plot with mean
 dot.mean <-  ggplot(data = small, aes(x= Location, y = EHS))+ 
   geom_beeswarm(aes(x= Location, y = EHS, fill=Location), shape=21, size=3, 
                    alpha=0.75, cex=2.25 , priority = "ascending", show.legend=FALSE) +
@@ -268,6 +275,7 @@ dot.mean <-  ggplot(data = small, aes(x= Location, y = EHS))+
   theme(legend.position="none")
 print(dot.mean)
 
+# save the graph
 ggsave(path="figures", filename="dot_beeswarm.jpg", height = 7, width = 8, units = "in", dpi = 500)
 
 ```
@@ -276,11 +284,11 @@ ggsave(path="figures", filename="dot_beeswarm.jpg", height = 7, width = 8, units
 
 ```{r dot quasirandom}
 
-#Filter for one semester (Winter 2019)
+# Filter for one semester (Winter 2019)
 hemlock$SamplingDate <- as.Date(hemlock$SamplingDate, "%m/%d/%Y")
 small <- hemlock %>% filter (SamplingDate > as.Date("2018-11-20"))
 
-#Dot plot with mean
+# Dot plot with mean
 dot.mean <-  ggplot(data = small, aes(x= Location, y = EHS))+ 
   geom_quasirandom(aes(x= Location, y = EHS, fill=Location), shape=21, size=3, 
                    alpha=0.75, width=0.2, show.legend=FALSE) +
@@ -294,6 +302,7 @@ dot.mean <-  ggplot(data = small, aes(x= Location, y = EHS))+
   theme(legend.position="none")
 print(dot.mean)
 
+# save the graph
 ggsave(path="figures", filename="dot_quasi.jpg", height = 7, width = 8, units = "in", dpi = 500)
 
 ```
