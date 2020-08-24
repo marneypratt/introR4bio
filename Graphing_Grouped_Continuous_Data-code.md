@@ -1,14 +1,11 @@
----
-title: "R Code for Grouped Graphs Swirl Lesson"
-author: "Marney Pratt"
-date: "8/22/2020"
-output: rmarkdown::github_document
----
+R Code for Grouped Graphs Swirl Lesson
+================
+Marney Pratt
+8/22/2020
 
 # Load Packages and Import Data
 
-```{r load package and import data, message=FALSE}
-
+``` r
 library(readr) ##for importing data
 library(ggplot2)  ##for graphing
 library(dplyr) ## for filtering, summarising, and other data wrangling
@@ -20,14 +17,11 @@ library(curl) #used for loading data from websites
 hemlock <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vT-Uo5Gs2dcR6f6_PFrZwkaSrojsBCFt1qvVNU0PXn4RHVe3_GDzNL3BCxkkp6eIhjkfKw3S6YcX6wz/pub?output=csv", 
                     col_types = cols(SamplingDate = col_date(format = "%m/%d/%Y"), 
                                      Location = col_factor()))
-
 ```
-
 
 # Bar Graph of Means and Standard Errors
 
-```{r bar with SE, message=FALSE}
-
+``` r
 ##calculate descriptive stats and SE for EHS density
 EHS.sum <- hemlock %>%
   group_by(Location) %>%
@@ -36,8 +30,17 @@ EHS.sum <- hemlock %>%
             n = n()) %>%
   mutate(sem = sd/(sqrt(n)))
 print(EHS.sum)
+```
 
+    ## # A tibble: 4 x 5
+    ##   Location  mean    sd     n   sem
+    ##   <fct>    <dbl> <dbl> <int> <dbl>
+    ## 1 FLE       4.01  3.74   218 0.254
+    ## 2 FLH       1.00  1.54   214 0.105
+    ## 3 MCL       3.62  3.39    59 0.441
+    ## 4 SMC       1.27  1.41    48 0.204
 
+``` r
 ##Bar plot with mean and SE
 g.bar <- ggplot(EHS.sum, aes(x=Location,y=mean, fill))+
   geom_bar(stat="identity",  width = 0.5, show.legend=FALSE, fill = "steelblue")+
@@ -47,18 +50,22 @@ g.bar <- ggplot(EHS.sum, aes(x=Location,y=mean, fill))+
   coord_cartesian(xlim = c(0.5,4.5), expand=FALSE) +
   theme_classic(base_size=16) 
 print(g.bar)
-
-ggsave(path="figures", filename="bar.jpg", height = 7, width = 8, units = "in", dpi = 500)
-
 ```
 
+![](Graphing_Grouped_Continuous_Data-code_files/figure-gfm/bar%20with%20SE-1.png)<!-- -->
+
+``` r
+ggsave(path="figures", filename="bar.jpg", height = 7, width = 8, units = "in", dpi = 500)
+```
 
 # Histograms
 
-A histogram is only useful when there are enough data points.  A good rule of thumb is that a histogram is useful when your sample size in each group is 20-30 or more.  If your N < 20 for each group, then it may not be useful to visualize with a histogram.
+A histogram is only useful when there are enough data points. A good
+rule of thumb is that a histogram is useful when your sample size in
+each group is 20-30 or more. If your N \< 20 for each group, then it may
+not be useful to visualize with a histogram.
 
-```{r histogram, message=FALSE}
-
+``` r
  # To make a histogram of just one location, first you have to filter for a location (in this case FLH)
 FLH.data <- hemlock %>% filter(Location == "FLH")
 
@@ -71,7 +78,11 @@ FLH.hist <- ggplot(data = FLH.data, aes(x = EHS))+
   coord_cartesian(expand=TRUE) +
   theme_classic(base_size=14) 
 print(FLH.hist)
+```
 
+![](Graphing_Grouped_Continuous_Data-code_files/figure-gfm/histogram-1.png)<!-- -->
+
+``` r
 # Histogram of the HWA density for all 4 locations
 g.hist <- ggplot(data = hemlock, aes(x = EHS, fill=Location))+ 
   geom_histogram(binwidth = 0.4, color = "white", show.legend = FALSE) +
@@ -81,20 +92,29 @@ g.hist <- ggplot(data = hemlock, aes(x = EHS, fill=Location))+
   coord_cartesian(expand=TRUE) +
   theme_classic(base_size=14) 
 print(g.hist)
+```
 
+![](Graphing_Grouped_Continuous_Data-code_files/figure-gfm/histogram-2.png)<!-- -->
+
+``` r
 ggsave(path="figures", filename="histogram.jpg", height = 7, width = 8, units = "in", dpi = 500)
-
 ```
 
 # Box Plots
-Type ?geom_boxplot in the console or search for geom_boxplot in the help window to pull up the help file.  Scroll down to "Summary statistics" to make sure you understand what the box plot is showing and describe ALL the symbols accurately in your figure legend.
 
-Remember, box plots are not useful for very small sample sizes (< 20 or so).  You need an absolute minimum of 5 points, but it is better to have more points for a box plot.  If your N < 10 for each group, then it is probably not useful to visualize with a box plot.
+Type ?geom\_boxplot in the console or search for geom\_boxplot in the
+help window to pull up the help file. Scroll down to “Summary
+statistics” to make sure you understand what the box plot is showing
+and describe ALL the symbols accurately in your figure legend.
+
+Remember, box plots are not useful for very small sample sizes (\< 20 or
+so). You need an absolute minimum of 5 points, but it is better to have
+more points for a box plot. If your N \< 10 for each group, then it is
+probably not useful to visualize with a box plot.
 
 ## Plain Box Plots with Means
 
-```{r plain box}
-
+``` r
 #This code will give a box plot with the mean indicated with an X (erase the stat_summary function if you want to remove the mean)
 
 ##Box plot of the EHS density at all 4 locations, X = mean, outliers showing as points
@@ -108,18 +128,20 @@ EHS.box <-ggplot(data = hemlock, aes(x= Location, y = EHS, color=Location))+
   coord_cartesian(ylim=c(0,11.5),expand=TRUE) +
   theme_classic(base_size=20) 
 print(EHS.box)
+```
 
+![](Graphing_Grouped_Continuous_Data-code_files/figure-gfm/plain%20box-1.png)<!-- -->
+
+``` r
 ggsave(path="figures", filename="box.jpg", height = 7, width = 8, units = "in", dpi = 500)
-
-
 ```
 
 ## Box Plots with Random Jittered Points
 
-This code will give a box plot with the mean indicated and all points are included and randomly jittered to avoid overlapping
+This code will give a box plot with the mean indicated and all points
+are included and randomly jittered to avoid overlapping
 
-```{r box plus random jittered points}
-
+``` r
 # Box plot of the EHS density at all 4 locations, X = mean, all points randomly jittered
 # Erase the stat_summary function if you want to remove the mean
 EHS.box2 <-ggplot(data = hemlock, aes(x= Location, y = EHS))+ 
@@ -134,16 +156,20 @@ EHS.box2 <-ggplot(data = hemlock, aes(x= Location, y = EHS))+
   coord_cartesian(expand=TRUE) +
   theme_classic(base_size=20) 
 print(EHS.box2)
-
-ggsave(path="figures", filename="box_random.jpg", height = 7, width = 8, units = "in", dpi = 500)
-
 ```
+
+![](Graphing_Grouped_Continuous_Data-code_files/figure-gfm/box%20plus%20random%20jittered%20points-1.png)<!-- -->
+
+``` r
+ggsave(path="figures", filename="box_random.jpg", height = 7, width = 8, units = "in", dpi = 500)
+```
+
 ## Box Plots with symmetric jittered points - beeswarm
 
-This code will give a box plot with the mean indicated and all points are included and symmetrically jittered with beeswarm
+This code will give a box plot with the mean indicated and all points
+are included and symmetrically jittered with beeswarm
 
-```{r box plus beeswarm points}
-
+``` r
 # Box plot of the EHS density at all 4 locations, X = mean, 
 # all points symmetrically jittered with beeswarm
 # Erase the stat_summary function if you want to remove the mean
@@ -159,17 +185,20 @@ EHS.box3 <-ggplot(data = hemlock, aes(x= Location, y = EHS))+
   coord_cartesian(expand=TRUE) +
   theme_classic(base_size=20) 
 print(EHS.box3)
+```
 
+![](Graphing_Grouped_Continuous_Data-code_files/figure-gfm/box%20plus%20beeswarm%20points-1.png)<!-- -->
+
+``` r
 ggsave(path="figures", filename="box_beeswarm.jpg", height = 7, width = 8, units = "in", dpi = 500)
-
 ```
 
 ## Box Plots with symmetric jittered points - quasirandom
 
-This code will give a box plot with the mean indicated and all points are included and symmetrically jittered with quasirandom
+This code will give a box plot with the mean indicated and all points
+are included and symmetrically jittered with quasirandom
 
-```{r box plus quasirandom points}
-
+``` r
 # Box plot of the EHS density at all 4 locations, X = mean, 
 # all points symmetrically jittered with quasirandom
 # Erase the stat_summary function if you want to remove the mean
@@ -185,15 +214,21 @@ EHS.box4 <-ggplot(data = hemlock, aes(x= Location, y = EHS))+
   coord_cartesian(expand=TRUE) +
   theme_classic(base_size=20) 
 print(EHS.box4)
-
-ggsave(path="figures", filename="box_quasi.jpg", height = 7, width = 8, units = "in", dpi = 500)
-
 ```
+
+![](Graphing_Grouped_Continuous_Data-code_files/figure-gfm/box%20plus%20quasirandom%20points-1.png)<!-- -->
+
+``` r
+ggsave(path="figures", filename="box_quasi.jpg", height = 7, width = 8, units = "in", dpi = 500)
+```
+
 # Violin Plots
-If the sample size is very large, it can be helpful to use a violin plot that shows the distribution (kind of like a probability density curve mirrored on its side)
 
-```{r violin, message=FALSE, warning=FALSE}
+If the sample size is very large, it can be helpful to use a violin plot
+that shows the distribution (kind of like a probability density curve
+mirrored on its side)
 
+``` r
 #calculate the sample size for each group first 
 sample_size = hemlock %>% group_by(Location) %>% summarize (num=n())
 
@@ -209,21 +244,27 @@ EHS.violin <- hemlock %>%
     theme_classic(base_size=18) +
     theme(legend.position="none")
 print(EHS.violin)
+```
 
+![](Graphing_Grouped_Continuous_Data-code_files/figure-gfm/violin-1.png)<!-- -->
+
+``` r
 ggsave(path="figures", filename="violin.jpg", height = 7, width = 8, units = "in", dpi = 500)
-
 ```
 
 # Dot Plots
 
-An increasingly popular way of visualizing data when the sample size is small enough is to show all the points and a measure of central tendency.  Below are three options for how to add points (1) random jitter, (2) beeswarm, (3) quasirandom.  
+An increasingly popular way of visualizing data when the sample size is
+small enough is to show all the points and a measure of central
+tendency. Below are three options for how to add points (1) random
+jitter, (2) beeswarm, (3) quasirandom.
 
-These examples all use the mean, to make graphs with the median, just replace the word mean with median everywhere in the graph.
+These examples all use the mean, to make graphs with the median, just
+replace the word mean with median everywhere in the graph.
 
 ## Dot Plots with Random Jitter
 
-```{r dot random}
-
+``` r
 #Filter for one semester (Winter 2019)
 hemlock$SamplingDate <- as.Date(hemlock$SamplingDate, "%m/%d/%Y")
 small <- hemlock %>% filter (SamplingDate > as.Date("2018-11-20"))
@@ -240,16 +281,17 @@ dot.mean <-  ggplot(data = small, aes(x= Location, y = EHS))+
   theme_classic(base_size=20) +
   theme(legend.position="none")
 print(dot.mean)
-
-ggsave(path="figures", filename="dot.jpg", height = 7, width = 8, units = "in", dpi = 500)
-
 ```
 
+![](Graphing_Grouped_Continuous_Data-code_files/figure-gfm/dot%20random-1.png)<!-- -->
+
+``` r
+ggsave(path="figures", filename="dot.jpg", height = 7, width = 8, units = "in", dpi = 500)
+```
 
 ## Dot Plots with Symmetric Beeswarm Jitter
 
-```{r dot beeswarm}
-
+``` r
 #Filter for one semester (Winter 2019)
 hemlock$SamplingDate <- as.Date(hemlock$SamplingDate, "%m/%d/%Y")
 small <- hemlock %>% filter (SamplingDate > as.Date("2018-11-20"))
@@ -267,15 +309,17 @@ dot.mean <-  ggplot(data = small, aes(x= Location, y = EHS))+
   theme_classic(base_size=20) +
   theme(legend.position="none")
 print(dot.mean)
+```
 
+![](Graphing_Grouped_Continuous_Data-code_files/figure-gfm/dot%20beeswarm-1.png)<!-- -->
+
+``` r
 ggsave(path="figures", filename="dot_beeswarm.jpg", height = 7, width = 8, units = "in", dpi = 500)
-
 ```
 
 ## Dot Plots with Symmetric Quasirandom Jitter
 
-```{r dot quasirandom}
-
+``` r
 #Filter for one semester (Winter 2019)
 hemlock$SamplingDate <- as.Date(hemlock$SamplingDate, "%m/%d/%Y")
 small <- hemlock %>% filter (SamplingDate > as.Date("2018-11-20"))
@@ -293,7 +337,10 @@ dot.mean <-  ggplot(data = small, aes(x= Location, y = EHS))+
   theme_classic(base_size=20) +
   theme(legend.position="none")
 print(dot.mean)
+```
 
+![](Graphing_Grouped_Continuous_Data-code_files/figure-gfm/dot%20quasirandom-1.png)<!-- -->
+
+``` r
 ggsave(path="figures", filename="dot_quasi.jpg", height = 7, width = 8, units = "in", dpi = 500)
-
 ```
