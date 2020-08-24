@@ -7,7 +7,7 @@ output: html_document
 
 # Load Packages and Import Data
 
-```{r}
+```{r load package and import data, message=FALSE}
 
 library(readr) ##for importing data
 library(ggplot2)  ##for graphing
@@ -26,7 +26,7 @@ hemlock <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vT-Uo5Gs2dc
 
 # Bar Graph of Means and Standard Errors
 
-```{r bar with SE}
+```{r bar with SE, message=FALSE}
 
 ##calculate descriptive stats and SE for EHS density
 EHS.sum <- hemlock %>%
@@ -48,23 +48,22 @@ g.bar <- ggplot(EHS.sum, aes(x=Location,y=mean, fill))+
   theme_classic(base_size=16) 
 print(g.bar)
 
-ggsave("bar.jpg", height = 7, width = 8, units = "in", dpi = 500)
+ggsave(path="figures", filename="bar.jpg", height = 7, width = 8, units = "in", dpi = 500)
 
 ```
 
 
 # Histograms
 
-```{r histogram}
+A histogram is only useful when there are enough data points.  A good rule of thumb is that a histogram is useful when your sample size in each group is 20-30 or more.  If your N < 20 for each group, then it may not be useful to visualize with a histogram.
 
-# A histogram is only useful when there are enough data points.  
-# A good rule of thumb is that a histogram is useful when your sample size in each group is 20-30 or more.  
-# If your N < 20 for each group, then it may not be useful to visualize with a histogram. 
+```{r histogram, message=FALSE}
 
-# To make a histogram of just one location, first you have to filter for a location (in this case FLH)
+ # To make a histogram of just one location, first you have to filter for a location (in this case FLH)
 FLH.data <- hemlock %>% filter(Location == "FLH")
 
-##Histogram of the EHS density at the FLH location
+# Histogram of the EHS density at the FLH location
+# change the binwidth as needed
 FLH.hist <- ggplot(data = FLH.data, aes(x = EHS))+ 
   geom_histogram(binwidth = 0.4, color = "white", fill = "steelblue", show.legend = FALSE) +
   xlab("EHS Density (insects/cm)") +
@@ -73,7 +72,7 @@ FLH.hist <- ggplot(data = FLH.data, aes(x = EHS))+
   theme_classic(base_size=14) 
 print(FLH.hist)
 
-##Histogram of the HWA density for all 4 locations
+# Histogram of the HWA density for all 4 locations
 g.hist <- ggplot(data = hemlock, aes(x = EHS, fill=Location))+ 
   geom_histogram(binwidth = 0.4, color = "white", show.legend = FALSE) +
   facet_grid(Location ~ .) +
@@ -83,7 +82,7 @@ g.hist <- ggplot(data = hemlock, aes(x = EHS, fill=Location))+
   theme_classic(base_size=14) 
 print(g.hist)
 
-ggsave("histogram.jpg", height = 7, width = 8, units = "in", dpi = 500)
+ggsave(path="figures", filename="histogram.jpg", height = 7, width = 8, units = "in", dpi = 500)
 
 ```
 
@@ -110,19 +109,19 @@ EHS.box <-ggplot(data = hemlock, aes(x= Location, y = EHS, color=Location))+
   theme_classic(base_size=20) 
 print(EHS.box)
 
-ggsave("box.jpg", height = 7, width = 8, units = "in", dpi = 500)
+ggsave(path="figures", filename="box.jpg", height = 7, width = 8, units = "in", dpi = 500)
 
 
 ```
 
 ## Box Plots with Random Jittered Points
 
+This code will give a box plot with the mean indicated and all points are included and randomly jittered to avoid overlapping
+
 ```{r box plus random jittered points}
 
-#This code will give a box plot with the mean indicated with an X (erase the stat_summary function if you want to remove the mean)
-#All points are included and randomly jittered to avoid overlapping
-
-##Box plot of the EHS density at all 4 locations, X = mean, all points showing
+# Box plot of the EHS density at all 4 locations, X = mean, all points randomly jittered
+# Erase the stat_summary function if you want to remove the mean
 EHS.box2 <-ggplot(data = hemlock, aes(x= Location, y = EHS))+ 
   geom_point(aes(x= Location, y = EHS, fill = Location), shape=21, size=1, alpha = 0.5,
              position=position_jitterdodge(jitter.width=0.8), show.legend=FALSE) +
@@ -136,18 +135,18 @@ EHS.box2 <-ggplot(data = hemlock, aes(x= Location, y = EHS))+
   theme_classic(base_size=20) 
 print(EHS.box2)
 
-ggsave("box_random.jpg", height = 7, width = 8, units = "in", dpi = 500)
+ggsave(path="figures", filename="box_random.jpg", height = 7, width = 8, units = "in", dpi = 500)
 
 ```
 ## Box Plots with symmetric jittered points - beeswarm
 
+This code will give a box plot with the mean indicated and all points are included and symmetrically jittered with beeswarm
+
 ```{r box plus beeswarm points}
 
-#This code will give a box plot with the mean indicated with an X (erase the stat_summary function if you want to remove the mean)
-#All points are included and symmetrically jittered using beeswarm to avoid overlapping
-
-
-##Box plot of the EHS density at all 4 locations, X = mean, all points showing
+# Box plot of the EHS density at all 4 locations, X = mean, 
+# all points symmetrically jittered with beeswarm
+# Erase the stat_summary function if you want to remove the mean
 EHS.box3 <-ggplot(data = hemlock, aes(x= Location, y = EHS))+ 
   geom_beeswarm(aes(x= Location, y = EHS, fill=Location), shape=21, size=1, 
                    alpha=0.5, priority = "random", show.legend=FALSE) +
@@ -161,18 +160,19 @@ EHS.box3 <-ggplot(data = hemlock, aes(x= Location, y = EHS))+
   theme_classic(base_size=20) 
 print(EHS.box3)
 
-ggsave("box_beeswarm.jpg", height = 7, width = 8, units = "in", dpi = 500)
+ggsave(path="figures", filename="box_beeswarm.jpg", height = 7, width = 8, units = "in", dpi = 500)
 
 ```
 
 ## Box Plots with symmetric jittered points - quasirandom
 
+This code will give a box plot with the mean indicated and all points are included and symmetrically jittered with quasirandom
+
 ```{r box plus quasirandom points}
 
-#This code will give a box plot with the mean indicated with an X (erase the stat_summary function if you want to remove the mean)
-#All points are included and symmetrically jittered using quasirandom to avoid overlapping
-
-##Box plot of the EHS density at all 4 locations, X = mean, all points showing
+# Box plot of the EHS density at all 4 locations, X = mean, 
+# all points symmetrically jittered with quasirandom
+# Erase the stat_summary function if you want to remove the mean
 EHS.box4 <-ggplot(data = hemlock, aes(x= Location, y = EHS))+ 
   geom_quasirandom(aes(x= Location, y = EHS, fill=Location), shape=21, size=1, 
                    alpha=0.5, width=0.3, show.legend=FALSE) +
@@ -186,13 +186,13 @@ EHS.box4 <-ggplot(data = hemlock, aes(x= Location, y = EHS))+
   theme_classic(base_size=20) 
 print(EHS.box4)
 
-ggsave("box_quasi.jpg", height = 7, width = 8, units = "in", dpi = 500)
+ggsave(path="figures", filename="box_quasi.jpg", height = 7, width = 8, units = "in", dpi = 500)
 
 ```
 # Violin Plots
 If the sample size is very large, it can be helpful to use a violin plot that shows the distribution (kind of like a probability density curve mirrored on its side)
 
-```{r violin}
+```{r violin, message=FALSE, warning=FALSE}
 
 #calculate the sample size for each group first 
 sample_size = hemlock %>% group_by(Location) %>% summarize (num=n())
@@ -210,13 +210,15 @@ EHS.violin <- hemlock %>%
     theme(legend.position="none")
 print(EHS.violin)
 
-ggsave("violin.jpg", height = 7, width = 8, units = "in", dpi = 500)
+ggsave(path="figures", filename="violin.jpg", height = 7, width = 8, units = "in", dpi = 500)
 
 ```
 
 # Dot Plots
 
-An increasingly popular way of visualizing data when the sample size is small enough is to show all the points and a measure of central tendency.  Below are three options for how to add points (1) random jitter, (2) beeswarm, (3) quasirandom.  These examples all use the mean, to make graphs with the median, just replace the word mean with median everywhere in the graph.
+An increasingly popular way of visualizing data when the sample size is small enough is to show all the points and a measure of central tendency.  Below are three options for how to add points (1) random jitter, (2) beeswarm, (3) quasirandom.  
+
+These examples all use the mean, to make graphs with the median, just replace the word mean with median everywhere in the graph.
 
 ## Dot Plots with Random Jitter
 
@@ -239,7 +241,7 @@ dot.mean <-  ggplot(data = small, aes(x= Location, y = EHS))+
   theme(legend.position="none")
 print(dot.mean)
 
-ggsave("dot.jpg", height = 7, width = 8, units = "in", dpi = 500)
+ggsave(path="figures", filename="dot.jpg", height = 7, width = 8, units = "in", dpi = 500)
 
 ```
 
@@ -266,7 +268,7 @@ dot.mean <-  ggplot(data = small, aes(x= Location, y = EHS))+
   theme(legend.position="none")
 print(dot.mean)
 
-ggsave("dot_beeswarm.jpg", height = 7, width = 8, units = "in", dpi = 500)
+ggsave(path="figures", filename="dot_beeswarm.jpg", height = 7, width = 8, units = "in", dpi = 500)
 
 ```
 
@@ -292,6 +294,6 @@ dot.mean <-  ggplot(data = small, aes(x= Location, y = EHS))+
   theme(legend.position="none")
 print(dot.mean)
 
-ggsave("dot_quasi.jpg", height = 7, width = 8, units = "in", dpi = 500)
+ggsave(path="figures", filename="dot_quasi.jpg", height = 7, width = 8, units = "in", dpi = 500)
 
 ```
