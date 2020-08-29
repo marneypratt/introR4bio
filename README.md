@@ -2,6 +2,8 @@
 
 ### by Marney Pratt
 
+### Last updated on August 29, 2020
+
 This webpage details how to download and install the **Intro to R for Biology** Swirl course. Please visit the [Swirl website](https://swirlstats.com/) for more information about how to install or develop interactive Swirl lessons.<br>
 
 Please feel free to download and use the **Intro to R for Biology** Swirl course for educational purposes, no commercial uses are allowed.
