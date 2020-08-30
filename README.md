@@ -104,6 +104,21 @@ If you need help while going through a swirl lesson, you can click on the "swirl
 You can also open the [Resources for the Intro to R for Biology course webpage](https://docs.google.com/document/d/e/2PACX-1vTRMYrJYm4DtGURF6voY0AwhFFGnIvjYleoC5qgH5uVzRmCNXO9EJuKLK5ihvH3rMvWtnuPZ_7qU13i/pub) and keep that open while you work through the lessons.
 
 
+Here is a list of the lessons available
+
+1. Basics
+2. Getting_Data_into_R
+3. Working_with_Data
+4. Descriptive_Statistics
+5. Graphing_with_ggplot
+6. Graphing_Grouped_Continuous_Data
+7. Comparing_2_Groups
+8. Linear_Regression
+9. Linear_Regression_with_a_Transformation
+
+Note that this course uses the [Tidyverse](https://www.tidyverse.org/) especially the readr, dplyr, and ggplot2 packages as well as ggfortify (an extension for ggplot2).
+
+A few lessons use the car and carData packages from [An R COmpanion to Applied Regression by John Fox and Sanford Weissberg](https://socialsciences.mcmaster.ca/jfox/Books/Companion/index.html)
 
 ## Enjoy Learning how to Use R!
 
