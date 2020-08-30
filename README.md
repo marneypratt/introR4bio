@@ -118,7 +118,7 @@ Here is a list of the lessons available
 
 Note that this course uses the [Tidyverse](https://www.tidyverse.org/) especially the readr, dplyr, and ggplot2 packages as well as ggfortify (an extension for ggplot2).
 
-A few lessons use the car and carData packages from [An R COmpanion to Applied Regression by John Fox and Sanford Weissberg](https://socialsciences.mcmaster.ca/jfox/Books/Companion/index.html)
+A few lessons use the car and carData packages from [An R Companion to Applied Regression by John Fox and Sanford Weissberg](https://socialsciences.mcmaster.ca/jfox/Books/Companion/index.html)
 
 ## Enjoy Learning how to Use R!
 
