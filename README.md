@@ -10,6 +10,8 @@ Please feel free to download and use the **Intro to R for Biology** Swirl course
 
 (note: it might be helpful to open a duplicate window of this page next to this one or on a separate device so you can more easily read and follow the instructions while you complete these steps)
 
+If you already have R and RStudio installed and you just want to install the **Intro to R for Biology** Swirl course, you can follow simpler instructions here: [Intro to R for Biology Swirl Course](https://github.com/marneypratt/Intro_to_R_for_Biology)
+
 ## Install/Update R and RStudio
 
 The directions below assume you have access to R and RStudio. Check with your instructor to see if you will be using a cloud-based version of RStudio. Even if you will be using a cloud-based version, it is good to have a backup of the software on your computer. If you need or want to install R and RStudio on your computer, you can follow these instructions - [Installing R and RStudio](https://moderndive.com/1-getting-started.html#installing)
@@ -74,9 +76,9 @@ Once you have all the files from the **Intro to R for Biology** repository into 
 
 Be patient, it sometimes takes a little while for the package to download and install.
 
-Note that there may be other packages you might need to install. For example, when I recently installed swirl, I had to also install the RCurl package to get swirl to load properly. It is also a good idea to make sure you have the most up to date version of the tidyverse package since we will use many tidyverse functions in the Intro to R for Biology swirl lessons. To install additional packages, use the `install.packages()` function (make sure to put the package name in quotes within the parentheses). Aslo note that you can install more than one package at once.  For example, to install RCurl and the tidyverse, use the following code:
+Note that there may be other packages you might need to install. For example, when I recently installed swirl, I had to also install the RCurl package to get swirl to load properly. It is also a good idea to make sure you have the most up to date version of the tidyverse, ggfortify, car, and carData packages since we will use these in the Intro to R for Biology Swirl lessons. To install additional packages, use the `install.packages()` function (make sure to put the package name in quotes within the parentheses). Aslo note that you can install more than one package at once.  For example, to install RCurl and the tidyverse, use the following code:
 
-`install.packages("RCurl","tidyverse")`
+`install.packages("RCurl","tidyverse", "ggfortify", "car", "carData")`
 
 2. Once the swirl package is installed (along with any other packages you might need), then you need to load swirl. This is similar to opening an app on your phone or computer. You will need to load the swirl package anytime you start a new session of R in RStudio. To load swirl, type this code into the RStudio console and press Enter:
 
@@ -88,7 +90,7 @@ Note that there may be other packages you might need to install. For example, wh
 
 When prompted, select the file called "Intro_to_R_for_Biology.swc"
 
-This is a compressed folder full of files in a special file format, .swc, unique to swirl. When you use the `install_course()` function to install this course, it will unpack and load the course for you.
+This is a compressed folder full of files in a special file format, .swc, unique to swirl. When you use the `install_course()` function to install this course, it will unpack this file and load the course for you.
 
 
 4. Next, type this code into the RStudio console and press Enter:
@@ -104,7 +106,9 @@ If you need help while going through a swirl lesson, you can click on the "swirl
 You can also open the [Resources for the Intro to R for Biology course webpage](https://docs.google.com/document/d/e/2PACX-1vTRMYrJYm4DtGURF6voY0AwhFFGnIvjYleoC5qgH5uVzRmCNXO9EJuKLK5ihvH3rMvWtnuPZ_7qU13i/pub) and keep that open while you work through the lessons.
 
 
-Here is a list of the lessons available
+## Intro to R for Biology Swirl Course
+
+Here is a list of the lessons available in the course
 
 1. Basics
 2. Getting_Data_into_R
