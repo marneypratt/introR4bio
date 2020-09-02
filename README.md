@@ -14,7 +14,7 @@ If you already have R and RStudio installed and you just want to install the **I
 
 ## Install/Update R and RStudio
 
-The directions below assume you have access to R and RStudio. Check with your instructor to see if you will be using a cloud-based version of RStudio. Even if you will be using a cloud-based version, it is good to have a backup of the software on your computer. If you need or want to install R and RStudio on your computer, you can follow these instructions - [Installing R and RStudio](https://moderndive.com/1-getting-started.html#installing)
+To use the interactive **Intro to R for Biology** Swirl course you need access to R and RStudio. Check with your instructor to see if you will be using a cloud-based version of RStudio (RStudio Server, RStudio Cloud). Even if you will be using a cloud-based version, it is good to have a backup of the software on your computer. If you need or want to install R and RStudio on your computer, you can follow these instructions - [Installing R and RStudio](https://moderndive.com/1-getting-started.html#installing)
 
 If you already have R and RStudio installed on your computer, then please update them if you do not have the latest versions. You can use the general instructions for how to update here (just note to use the latest versions of the programs and packages rather than the version listed here) - [I have R Installed](https://jennhuck.github.io/workshops/install_update_R.html#%E2%80%9Ci_have_r_installed%E2%80%9D)
 
@@ -74,9 +74,9 @@ Once you have all the files from the **Intro to R for Biology** repository into 
 
 `install.packages("swirl")`
 
-Be patient, it sometimes takes a little while for the package to download and install.
+Be patient, it sometimes takes a little while for the package to download and install.  (You will need an internet connection to download packages)
 
-Note that there may be other packages you might need to install. For example, when I recently installed swirl, I had to also install the RCurl package to get swirl to load properly. It is also a good idea to make sure you have the most up to date version of the tidyverse, ggfortify, car, and carData packages since we will use these in the Intro to R for Biology Swirl lessons. To install additional packages, use the `install.packages()` function (make sure to put the package name in quotes within the parentheses). Aslo note that you can install more than one package at once.  For example, to install RCurl and the tidyverse, use the following code:
+Note that there may be other packages you might need to install. For example, when I recently installed swirl, I had to also install the RCurl package to get swirl to load properly. It is also a good idea to make sure you have the most up to date version of the tidyverse, ggfortify, car, and carData packages since we will use these in the Intro to R for Biology Swirl lessons. To install additional packages, use the `install.packages()` function (make sure to put the package name in quotes within the parentheses). Also note that you can install more than one package at once.  For example, to install RCurl and the tidyverse, use ggfortify, car, and carData packages at once use the following code:
 
 `install.packages("RCurl","tidyverse", "ggfortify", "car", "carData")`
 
