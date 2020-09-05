@@ -369,13 +369,17 @@ summary {
 <h1>Intro to R for Biology</h1>
 <div id="by-marney-pratt" class="section level3">
 <h3>by Marney Pratt</h3>
+</div>
+<div id="last-updated-on-august-29-2020" class="section level3">
+<h3>Last updated on August 29, 2020</h3>
 <p>This webpage details how to download and install the <strong>Intro to R for Biology</strong> Swirl course. Please visit the <a href="https://swirlstats.com/">Swirl website</a> for more information about how to install or develop interactive Swirl lessons.<br></p>
 <p>Please feel free to download and use the <strong>Intro to R for Biology</strong> Swirl course for educational purposes, no commercial uses are allowed.</p>
 <p>(note: it might be helpful to open a duplicate window of this page next to this one or on a separate device so you can more easily read and follow the instructions while you complete these steps)</p>
+<p>If you already have R and RStudio installed and you just want to install the <strong>Intro to R for Biology</strong> Swirl course, you can follow simpler instructions here: <a href="https://github.com/marneypratt/Intro_to_R_for_Biology">Intro to R for Biology Swirl Course</a></p>
 </div>
 <div id="installupdate-r-and-rstudio" class="section level2">
 <h2>Install/Update R and RStudio</h2>
-<p>The directions below assume you have access to R and RStudio. Check with your instructor to see if you will be using a cloud-based version of RStudio. Even if you will be using a cloud-based version, it is good to have a backup of the software on your computer. If you need or want to install R and RStudio on your computer, you can follow these instructions - <a href="https://moderndive.com/1-getting-started.html#installing">Installing R and RStudio</a></p>
+<p>To use the interactive <strong>Intro to R for Biology</strong> Swirl course you need access to R and RStudio. Check with your instructor to see if you will be using a cloud-based version of RStudio (RStudio Server, RStudio Cloud). Even if you will be using a cloud-based version, it is good to have a backup of the software on your computer. If you need or want to install R and RStudio on your computer, you can follow these instructions - <a href="https://moderndive.com/1-getting-started.html#installing">Installing R and RStudio</a></p>
 <p>If you already have R and RStudio installed on your computer, then please update them if you do not have the latest versions. You can use the general instructions for how to update here (just note to use the latest versions of the programs and packages rather than the version listed here) - <a href="https://jennhuck.github.io/workshops/install_update_R.html#%E2%80%9Ci_have_r_installed%E2%80%9D">I have R Installed</a></p>
 </div>
 <div id="clonecopy-this-repository-from-github" class="section level2">
@@ -413,7 +417,7 @@ summary {
 </ol>
 <p><code>use_course(&quot;https://github.com/marneypratt/introR4bio/archive/master.zip&quot;)</code></p>
 <ol start="4" style="list-style-type: decimal">
-<li><p>When told “Dowloading into…” “OK to proceed?” select the number for the option next to “I agree” and note what directory it is putting the zipped file into. (Note that you can move the files later if needed)</p></li>
+<li><p>When told “Downloading into…” “OK to proceed?” select the number for the option next to “I agree” and note what directory it is putting the zipped file into. (Note that you can move the files later if needed)</p></li>
 <li><p>When asked “Shall we delete the ZIP file” select the number for the option that says “Definitely”</p></li>
 </ol>
 <p>A new session of RStudio will open with the unzipped folder containing all the files you need ready for you.</p>
@@ -426,9 +430,13 @@ summary {
 <li>The first time you use swirl, you will have to install the package. You will only need to do this once. It is similar to downloading an app to your phone or computer. To install swirl, type this code into the RStudio console and press Enter:</li>
 </ol>
 <p><code>install.packages(&quot;swirl&quot;)</code></p>
-<p>Be patient, it sometimes takes a little while for the package to download and install.</p>
-<p>Note that there may be other packages you might need to install. For example, when I recently installed swirl, I had to also install the RCurl package to get swirl to load properly. It is also a good idea to make sure you have the most up to date version of the tidyverse package since we will use many tidyverse functions in the Intro to R for Biology swirl lessons. To install additional packages, use the <code>install.packages()</code> function (make sure to put the package name in quotes within the parentheses). Aslo note that you can install more than one package at once. For example, to install RCurl and the tidyverse, use the following code:</p>
-<p><code>install.packages(&quot;RCurl&quot;,&quot;tidyverse&quot;)</code></p>
+<p>Be patient, it sometimes takes a little while for the package to download and install. (You will need an internet connection to download packages)</p>
+<p>Note that there may be other packages you might need to install. For example, when I recently installed swirl, I had to also install the RCurl package to get swirl to load properly. It is also a good idea to make sure you have the most up to date version of the tidyverse, ggfortify, car, and carData packages since we will use these in the Intro to R for Biology Swirl lessons. To install additional packages, use the <code>install.packages()</code> function (make sure to put the package name in quotes within the parentheses). For example, to install RCurl and the tidyverse, use ggfortify, car, and carData packages at once use the following code:</p>
+<pre><code>install.packages(&quot;RCurl&quot;)
+install.packages(&quot;tidyverse&quot;)
+install.packages(&quot;ggfortify&quot;)
+install.packages(&quot;car&quot;)
+install.packages(&quot;carData&quot;)</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Once the swirl package is installed (along with any other packages you might need), then you need to load swirl. This is similar to opening an app on your phone or computer. You will need to load the swirl package anytime you start a new session of R in RStudio. To load swirl, type this code into the RStudio console and press Enter:</li>
 </ol>
@@ -438,7 +446,7 @@ summary {
 </ol>
 <p><code>install_course()</code></p>
 <p>When prompted, select the file called “Intro_to_R_for_Biology.swc”</p>
-<p>This is a compressed folder full of files in a special file format, .swc, unique to swirl. When you use the <code>install_course()</code> function to install this course, it will unpack and load the course for you.</p>
+<p>This is a compressed folder full of files in a special file format, .swc, unique to swirl. When you use the <code>install_course()</code> function to install this course, it will unpack this file and load the course for you.</p>
 <ol start="4" style="list-style-type: decimal">
 <li>Next, type this code into the RStudio console and press Enter:</li>
 </ol>
@@ -449,6 +457,23 @@ summary {
 </ol>
 <p>If you need help while going through a swirl lesson, you can click on the “swirl-commands.txt” or “swirl-tips.txt” files in the IntroR4bio folder</p>
 <p>You can also open the <a href="https://docs.google.com/document/d/e/2PACX-1vTRMYrJYm4DtGURF6voY0AwhFFGnIvjYleoC5qgH5uVzRmCNXO9EJuKLK5ihvH3rMvWtnuPZ_7qU13i/pub">Resources for the Intro to R for Biology course webpage</a> and keep that open while you work through the lessons.</p>
+</div>
+<div id="intro-to-r-for-biology-swirl-course" class="section level2">
+<h2>Intro to R for Biology Swirl Course</h2>
+<p>Here is a list of the lessons available in the course</p>
+<ol style="list-style-type: decimal">
+<li>Basics</li>
+<li>Getting_Data_into_R</li>
+<li>Working_with_Data</li>
+<li>Descriptive_Statistics</li>
+<li>Graphing_with_ggplot</li>
+<li>Graphing_Grouped_Continuous_Data</li>
+<li>Comparing_2_Groups</li>
+<li>Linear_Regression</li>
+<li>Linear_Regression_with_a_Transformation</li>
+</ol>
+<p>Note that this course uses the <a href="https://www.tidyverse.org/">Tidyverse</a> especially the readr, dplyr, and ggplot2 packages as well as ggfortify (an extension for ggplot2).</p>
+<p>A few lessons use the car and carData packages from <a href="https://socialsciences.mcmaster.ca/jfox/Books/Companion/index.html">An R Companion to Applied Regression by John Fox and Sanford Weissberg</a></p>
 </div>
 <div id="enjoy-learning-how-to-use-r" class="section level2">
 <h2>Enjoy Learning how to Use R!</h2>
