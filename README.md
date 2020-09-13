@@ -74,11 +74,13 @@ Once you have all the files from the **Intro to R for Biology** repository into 
 
 `install.packages("swirl")`
 
-Be patient, it sometimes takes a little while for the package to download and install.  (You will need an internet connection to download packages)
+Be patient, it sometimes takes a little while for the package to download and install. (You will need an internet connection to download packages)
 
-Note that there may be other packages you might need to install. For example, when I recently installed swirl, I had to also install the RCurl package to get swirl to load properly. It is also a good idea to make sure you have the most up to date version of the tidyverse, ggfortify, car, and carData packages since we will use these in the Intro to R for Biology Swirl lessons. You might need to restart your R session and then install these packages first before swirl will install properly. 
+Note that there may be other packages you might need to install. For example, when I recently installed swirl, I had to also install the RCurl package to get swirl to load properly. It is also a good idea to make sure you have the most up to date version of the tidyverse, ggfortify, ggbeeswarm, car, and carData packages since we will use these in the Intro to R for Biology Swirl lessons. 
 
-To install additional packages, use the `install.packages()` function (make sure to put the package name in quotes within the parentheses). For example, to install the RCurl, tidyverse, ggfortify, ggbeeswarm, car, and carData packages use the following code:
+You might need to restart your R session and then install these packages first before swirl will install properly. Restart your R session by going to the top menu and selecting "Session" then select "Restart R"
+
+To install additional packages, use the `install.packages()` function (make sure to put the package name in quotes within the parentheses). For example, to install the RCurl, tidyverse, ggfortify, ggbeeswarm, car, and carData packages use the following code one at a time in the console:
 
 ```
 install.packages("RCurl")
